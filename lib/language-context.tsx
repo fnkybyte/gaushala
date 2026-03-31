@@ -252,13 +252,13 @@ const translations: Record<Language, Record<string, string>> = {
     // Stats
     "stats.cowsSheltered": "कुल संरक्षित गायें",
     "stats.dailyFeeding": "दैनिक भोजन व्यय",
-    "stats.monthlyExpense": "मासिक व्यय",
+    "stats.monthlyExpense": "म��सिक व्यय",
     "stats.rescuedThisYear": "इस वर्ष बचाई गई",
     
     // About Section
     "about.badge": "हमारी विरासत",
     "about.title": "समर्पण से जीवन का पोषण",
-    "about.para1": "1998 में स्थापित, धर्म सैंक्चुअरी एक करुणा के एक कार्य से जन्मी - वृंदावन की सड़कों से एक बछड़े को बचाना। आज, हम 1,200 से अधिक पवित्र प्राणियों का घर हैं जो कभी परित्यक्त, घायल या वध के लिए नियत थे।",
+    "about.para1": "1998 में स्थापित, धर्म सैंक्चुअरी एक करु��ा के एक कार्य से जन्मी - वृंदावन की सड़कों से एक बछड़े को बचाना। आज, हम 1,200 से अधिक पवित्र प्राणियों का घर हैं जो कभी परित्यक्त, घायल या वध के लिए नियत थे।",
     "about.para2": "हमारी गौशाला एक आश्रय से कहीं अधिक है; यह एक आध्यात्मिक पारिस्थितिकी तंत्र है जहाँ गायों को परिवार की तरह माना जाता है। हम विशेष जैविक चारा, चौबीसों घंटे पशु चिकित्सा देखभाल और एक शांत वातावरण प्रदान करते हैं जो भजनों की ध्वनि से गूंजता है।",
     "about.volunteers": "500+ सक्रिय स्वयंसेवकों से जुड़ें",
     "about.quote": "करुणा मूक प्राणियों से शुरू होती है।",
@@ -332,7 +332,7 @@ const translations: Record<Language, Record<string, string>> = {
     "footer.followUs": "फॉलो करें",
     "footer.newsletter": "न्यूज़लेटर",
     "footer.emailPlaceholder": "ईमेल",
-    "footer.copyright": "© 2024 संपादकीय धर्म सैंक्चुअरी। सर्वाधिकार सुरक्षित। गौ सेवा को समर्पित।",
+    "footer.copyright": "© 2024 संपादकीय धर्म सैंक्चुअरी। सर्वाधिकार सुरक्षित। गौ सेवा को समर्���ित।",
     
     // About Page
     "aboutPage.badge": "हमारा पवित्र मिशन",
@@ -392,7 +392,7 @@ const translations: Record<Language, Record<string, string>> = {
     "donatePage.comprehensiveSupport": "व्यापक मासिक सहायता",
     "donatePage.adoptTitle": "वर्चुअली गाय गोद लें",
     "donatePage.adoptBadge": "अनूठा अवसर",
-    "donatePage.adoptDesc": "आध्यात्मिक बंधन बनाएं। साप्ताहिक अपडेट, फोटो और अपनी संरक्षित गाय का नाम रखने का मौका पाएं।",
+    "donatePage.adoptDesc": "आध्यात्मिक बंधन ��नाएं। साप्ताहिक अपडेट, फोटो और अपनी संरक्षित गाय का नाम रखने का मौका पाएं।",
     "donatePage.startAdoption": "गोद लेने की यात्रा शुरू करें",
     
     // Gallery Page
@@ -452,7 +452,7 @@ const translations: Record<Language, Record<string, string>> = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("en")
+  const [language, setLanguageState] = useState<Language>("hi")
 
   useEffect(() => {
     // Check localStorage for saved language preference
