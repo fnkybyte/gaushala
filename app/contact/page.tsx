@@ -6,8 +6,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { Phone, MessageSquare, Mail, MapPin, Clock, Check } from "lucide-react"
 import { useState } from "react"
+import { useLanguage } from "@/lib/language-context"
 
 export default function ContactPage() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -29,11 +31,10 @@ export default function ContactPage() {
       <section className="pt-32 pb-12 px-4 md:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto">
           <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-on-surface mb-6 text-balance">
-            Connect with the<br />Sanctuary
+            {t("contactPage.title")}
           </h1>
           <p className="text-on-surface-variant text-lg max-w-xl leading-relaxed">
-            Whether you wish to visit, volunteer, or simply learn more about Gau Seva, we are
-            here to welcome you. Your reach is a blessing to our herd.
+            {t("contactPage.subtitle")}
           </p>
         </div>
       </section>
@@ -45,7 +46,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             {/* Reach Us Directly Card */}
             <div className="bg-primary-fixed/30 rounded-3xl p-8">
-              <h2 className="font-headline text-xl text-primary font-semibold mb-6">Reach Us Directly</h2>
+              <h2 className="font-headline text-xl text-primary font-semibold mb-6">{t("contactPage.reachTitle")}</h2>
               
               <div className="space-y-5">
                 <div className="flex items-start gap-4">
@@ -53,7 +54,7 @@ export default function ContactPage() {
                     <Phone className="w-5 h-5 text-on-primary" />
                   </div>
                   <div>
-                    <p className="text-xs text-on-surface-variant/70 uppercase tracking-wider mb-1">PHONE NUMBER</p>
+                    <p className="text-xs text-on-surface-variant/70 uppercase tracking-wider mb-1">{t("contactPage.phoneNumber")}</p>
                     <a href="tel:+919876543210" className="text-on-surface font-medium hover:text-primary transition-colors">
                       +91 98765 43210
                     </a>
@@ -65,9 +66,9 @@ export default function ContactPage() {
                     <MessageSquare className="w-5 h-5 text-on-primary" />
                   </div>
                   <div>
-                    <p className="text-xs text-on-surface-variant/70 uppercase tracking-wider mb-1">WHATSAPP SUPPORT</p>
+                    <p className="text-xs text-on-surface-variant/70 uppercase tracking-wider mb-1">{t("contactPage.whatsappSupport")}</p>
                     <a href="https://wa.me/919876543210" className="text-on-surface font-medium hover:text-primary transition-colors">
-                      Message us on WhatsApp
+                      {t("contactPage.whatsappMessage")}
                     </a>
                   </div>
                 </div>
@@ -77,7 +78,7 @@ export default function ContactPage() {
                     <Mail className="w-5 h-5 text-on-primary" />
                   </div>
                   <div>
-                    <p className="text-xs text-on-surface-variant/70 uppercase tracking-wider mb-1">EMAIL ADDRESS</p>
+                    <p className="text-xs text-on-surface-variant/70 uppercase tracking-wider mb-1">{t("contactPage.emailAddress")}</p>
                     <a href="mailto:seva@dharmasanctuary.org" className="text-on-surface font-medium hover:text-primary transition-colors">
                       seva@dharmasanctuary.org
                     </a>
@@ -89,10 +90,9 @@ export default function ContactPage() {
                     <MapPin className="w-5 h-5 text-on-primary" />
                   </div>
                   <div>
-                    <p className="text-xs text-on-surface-variant/70 uppercase tracking-wider mb-1">SANCTUARY LOCATION</p>
+                    <p className="text-xs text-on-surface-variant/70 uppercase tracking-wider mb-1">{t("contactPage.location")}</p>
                     <p className="text-on-surface font-medium">
-                      108 Krishna Marg, Near Gir Forest,<br />
-                      Junagadh, Gujarat - 362001
+                      {t("contactPage.locationValue")}
                     </p>
                   </div>
                 </div>
@@ -111,7 +111,7 @@ export default function ContactPage() {
               <div className="absolute bottom-6 left-6">
                 <span className="inline-flex items-center gap-2 bg-surface/95 px-4 py-2 rounded-full text-sm text-on-surface">
                   <MapPin className="w-4 h-4 text-primary" />
-                  Find us in Gujarat
+                  {t("contactPage.findUs")}
                 </span>
               </div>
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -124,16 +124,16 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="bg-surface-container-lowest rounded-3xl p-8 spirit-shadow">
-            <h2 className="font-headline text-2xl text-on-surface mb-2">Send an Inquiry</h2>
+            <h2 className="font-headline text-2xl text-on-surface mb-2">{t("contactPage.inquiryTitle")}</h2>
             <p className="text-on-surface-variant mb-8">
-              {"We'll get back to you within 24 hours of receiving your message."}
+              {t("contactPage.inquirySubtitle")}
             </p>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-on-surface-variant/70 uppercase tracking-wider mb-2">
-                    Full Name
+                    {t("contactPage.fullName")}
                   </label>
                   <input
                     type="text"
@@ -146,7 +146,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <label className="block text-xs text-on-surface-variant/70 uppercase tracking-wider mb-2">
-                    Email Address
+                    {t("contactPage.emailAddr")}
                   </label>
                   <input
                     type="email"
@@ -162,7 +162,7 @@ export default function ContactPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs text-on-surface-variant/70 uppercase tracking-wider mb-2">
-                    Phone Number
+                    {t("contactPage.phoneNum")}
                   </label>
                   <input
                     type="tel"
@@ -174,7 +174,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <label className="block text-xs text-on-surface-variant/70 uppercase tracking-wider mb-2">
-                    How can you help?
+                    {t("contactPage.howHelp")}
                   </label>
                   <select
                     value={formData.helpType}
@@ -192,12 +192,12 @@ export default function ContactPage() {
 
               <div>
                 <label className="block text-xs text-on-surface-variant/70 uppercase tracking-wider mb-2">
-                  Message
+                  {t("contactPage.messageLabel")}
                 </label>
                 <textarea
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  placeholder="How can we assist you today?"
+                  placeholder={t("contactPage.messagePlaceholder")}
                   rows={4}
                   className="w-full px-4 py-3 bg-surface-container rounded-xl border-0 text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
                 />
@@ -207,7 +207,7 @@ export default function ContactPage() {
                 type="submit"
                 className="w-full py-4 bg-primary text-on-primary rounded-full font-medium hover:bg-primary/90 transition-colors"
               >
-                Send Message
+                {t("contactPage.sendMessage")}
               </button>
             </form>
 
@@ -216,19 +216,19 @@ export default function ContactPage() {
               <div className="bg-surface-container rounded-2xl p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Clock className="w-5 h-5 text-primary" />
-                  <h3 className="font-headline font-semibold text-on-surface">Visiting Hours</h3>
+                  <h3 className="font-headline font-semibold text-on-surface">{t("contactPage.visitingHours")}</h3>
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-on-surface-variant">Monday - Friday</span>
+                    <span className="text-on-surface-variant">{t("contactPage.monFri")}</span>
                     <span className="text-on-surface font-medium">08:00 - 18:00</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-on-surface-variant">Saturday</span>
+                    <span className="text-on-surface-variant">{t("contactPage.saturday")}</span>
                     <span className="text-on-surface font-medium">07:00 - 19:00</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-on-surface-variant">Sunday & Festivals</span>
+                    <span className="text-on-surface-variant">{t("contactPage.sundayFestivals")}</span>
                     <span className="text-on-surface font-medium">06:00 - 20:00</span>
                   </div>
                 </div>
@@ -237,20 +237,20 @@ export default function ContactPage() {
               <div className="bg-surface-container rounded-2xl p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-lg">&#128004;</span>
-                  <h3 className="font-headline font-semibold text-on-surface">Guidelines</h3>
+                  <h3 className="font-headline font-semibold text-on-surface">{t("contactPage.guidelines")}</h3>
                 </div>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
-                    <span className="text-on-surface-variant">Feeding only provided fodder is allowed.</span>
+                    <span className="text-on-surface-variant">{t("contactPage.guideline1")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
-                    <span className="text-on-surface-variant">Maintain silence near the mother cows.</span>
+                    <span className="text-on-surface-variant">{t("contactPage.guideline2")}</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-0.5" />
-                    <span className="text-on-surface-variant">Photography is allowed for personal use.</span>
+                    <span className="text-on-surface-variant">{t("contactPage.guideline3")}</span>
                   </li>
                 </ul>
               </div>
@@ -273,24 +273,23 @@ export default function ContactPage() {
             
             <div className="relative z-10">
               <h2 className="font-headline text-3xl md:text-4xl text-on-secondary font-bold mb-4">
-                Become a Guardian
+                {t("contactPage.becomeGuardian")}
               </h2>
               <p className="text-on-secondary/80 max-w-md mx-auto mb-8">
-                Your support provides food, medicine, and a lifetime of care for the cows in our
-                sanctuary.
+                {t("contactPage.guardianDesc")}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Link 
                   href="/donate"
                   className="px-8 py-3 bg-surface text-secondary rounded-full font-medium hover:bg-surface/90 transition-colors"
                 >
-                  Start Monthly Support
+                  {t("contactPage.startMonthly")}
                 </Link>
                 <Link 
                   href="/about"
                   className="px-8 py-3 bg-on-secondary text-secondary rounded-full font-medium hover:bg-on-secondary/90 transition-colors"
                 >
-                  Learn More
+                  {t("contactPage.learnMore")}
                 </Link>
               </div>
             </div>

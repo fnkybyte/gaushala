@@ -5,32 +5,35 @@ import { Footer } from "@/components/footer"
 import Image from "next/image"
 import Link from "next/link"
 import { Heart, Leaf, Plus, Shield, ArrowRight, Building2, QrCode, Smartphone } from "lucide-react"
-
-const donationTiers = [
-  {
-    icon: Leaf,
-    label: "SUPPORT TIER",
-    amount: "₹501",
-    description: "Feed for a Day",
-    featured: false,
-  },
-  {
-    icon: Plus,
-    label: "CRITICAL CARE",
-    amount: "₹1,100",
-    description: "Medical Care & Checkups",
-    featured: false,
-  },
-  {
-    icon: Heart,
-    label: "GOLD SPONSORSHIP",
-    amount: "₹2,100",
-    description: "Comprehensive Monthly Support",
-    featured: true,
-  },
-]
+import { useLanguage } from "@/lib/language-context"
 
 export default function DonatePage() {
+  const { t } = useLanguage()
+
+  const donationTiers = [
+    {
+      icon: Leaf,
+      label: t("donatePage.supportTier"),
+      amount: "₹501",
+      description: t("donatePage.feedDay"),
+      featured: false,
+    },
+    {
+      icon: Plus,
+      label: t("donatePage.criticalCare"),
+      amount: "₹1,100",
+      description: t("donatePage.medicalCheckups"),
+      featured: false,
+    },
+    {
+      icon: Heart,
+      label: t("donatePage.goldSponsorship"),
+      amount: "₹2,100",
+      description: t("donatePage.comprehensiveSupport"),
+      featured: true,
+    },
+  ]
+
   return (
     <div className="min-h-screen bg-surface">
       <Navbar />
@@ -38,11 +41,10 @@ export default function DonatePage() {
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4 md:px-8 text-center">
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-primary mb-6 text-balance">
-          Your Gau Seva Matters
+          {t("donatePage.title")}
         </h1>
         <p className="text-on-surface-variant text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-          Join our mission to provide sanctuary, medical care, and lifelong dignity to the
-          sacred cows of India. Every contribution sustains a life.
+          {t("donatePage.subtitle")}
         </p>
       </section>
 
@@ -52,10 +54,10 @@ export default function DonatePage() {
           {/* QR Code Section */}
           <div className="bg-surface-container-lowest rounded-3xl p-8 spirit-shadow">
             <h2 className="font-headline text-2xl text-primary mb-2">
-              Scan to Support Our Sacred Work
+              {t("donatePage.scanTitle")}
             </h2>
             <p className="text-on-surface-variant mb-8">
-              Instant UPI Donation via GPay, PhonePe, or Paytm
+              {t("donatePage.scanSubtitle")}
             </p>
             
             <div className="bg-white rounded-2xl p-8 flex flex-col items-center mb-6">
@@ -78,7 +80,7 @@ export default function DonatePage() {
             </div>
             
             <div className="flex items-center justify-center gap-6 text-on-surface-variant/60">
-              <span className="text-xs">POWERED BY</span>
+              <span className="text-xs">{t("donatePage.poweredBy").toUpperCase()}</span>
               <Building2 className="w-5 h-5" />
               <Smartphone className="w-5 h-5" />
               <QrCode className="w-5 h-5" />
@@ -90,8 +92,8 @@ export default function DonatePage() {
                 <Shield className="w-6 h-6 text-on-secondary" />
               </div>
               <div>
-                <h3 className="font-headline text-secondary font-semibold">100% Transparency Promise</h3>
-                <p className="text-sm text-on-surface-variant">Every rupee is tracked and audited for Gau Seva.</p>
+                <h3 className="font-headline text-secondary font-semibold">{t("donatePage.transparencyTitle")}</h3>
+                <p className="text-sm text-on-surface-variant">{t("donatePage.transparencyDesc")}</p>
               </div>
             </div>
           </div>
@@ -148,11 +150,9 @@ export default function DonatePage() {
                 </svg>
               </div>
               <div>
-                <h3 className="font-headline text-xl text-primary font-semibold mb-2">Tax Exemption Details</h3>
+                <h3 className="font-headline text-xl text-primary font-semibold mb-2">{t("donatePage.taxTitle")}</h3>
                 <p className="text-on-surface-variant leading-relaxed">
-                  All donations are 100% tax-exempt under Section 80G of
-                  the Income Tax Act. We will email your certificate within 48
-                  hours of your contribution.
+                  {t("donatePage.taxDesc")}
                 </p>
               </div>
             </div>
@@ -173,20 +173,19 @@ export default function DonatePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
             <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-center max-w-xl">
               <span className="inline-block bg-secondary text-on-secondary text-xs font-medium px-3 py-1 rounded-full mb-4 w-fit">
-                UNIQUE OPPORTUNITY
+                {t("donatePage.adoptBadge").toUpperCase()}
               </span>
               <h2 className="font-headline text-3xl md:text-4xl text-white font-bold mb-4">
-                Adopt a Cow virtually
+                {t("donatePage.adoptTitle")}
               </h2>
               <p className="text-white/80 mb-6 leading-relaxed">
-                Form a spiritual bond. Receive weekly updates, photos,
-                and a chance to name your protected cow.
+                {t("donatePage.adoptDesc")}
               </p>
               <Link 
                 href="/contact"
                 className="inline-flex items-center gap-2 bg-on-surface text-surface px-6 py-3 rounded-full font-medium hover:bg-on-surface/90 transition-colors w-fit"
               >
-                Start Adoption Journey
+                {t("donatePage.startAdoption")}
                 <Heart className="w-4 h-4" />
               </Link>
             </div>
@@ -194,7 +193,7 @@ export default function DonatePage() {
         </div>
       </section>
 
-      <Footer variant="donate" />
+      <Footer />
     </div>
   )
 }

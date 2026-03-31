@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Play, Filter } from "lucide-react"
 import { useState } from "react"
+import { useLanguage } from "@/lib/language-context"
 
 const galleryImages = [
   {
@@ -35,29 +36,30 @@ const galleryImages = [
   },
 ]
 
-const videos = [
-  {
-    thumbnail: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&h=300&fit=crop",
-    title: "Rescue Stories",
-    description: "Follow the journey of Nandi from the streets to a life of peace and health at our sanctuary.",
-    duration: "4:20",
-  },
-  {
-    thumbnail: "https://images.unsplash.com/photo-1596733430284-f7437764b1a9?w=400&h=300&fit=crop",
-    title: "Daily Aarti",
-    description: "Experience the spiritual resonance of our evening ritual honoring the sacred Gau Mata.",
-    duration: "12:45",
-  },
-  {
-    thumbnail: "https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=400&h=300&fit=crop",
-    title: "Cow Care Rituals",
-    description: "A deep dive into our holistic health practices, grooming, and specialized cow nutrition.",
-    duration: "8:15",
-  },
-]
-
 export default function GalleryPage() {
   const [filter, setFilter] = useState("all")
+  const { t } = useLanguage()
+
+  const videos = [
+    {
+      thumbnail: "https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?w=400&h=300&fit=crop",
+      title: t("galleryPage.video1Title"),
+      description: t("galleryPage.video1Desc"),
+      duration: "4:20",
+    },
+    {
+      thumbnail: "https://images.unsplash.com/photo-1596733430284-f7437764b1a9?w=400&h=300&fit=crop",
+      title: t("galleryPage.video2Title"),
+      description: t("galleryPage.video2Desc"),
+      duration: "12:45",
+    },
+    {
+      thumbnail: "https://images.unsplash.com/photo-1546445317-29f4545e9d53?w=400&h=300&fit=crop",
+      title: t("galleryPage.video3Title"),
+      description: t("galleryPage.video3Desc"),
+      duration: "8:15",
+    },
+  ]
 
   return (
     <div className="min-h-screen bg-surface">
@@ -66,14 +68,13 @@ export default function GalleryPage() {
       {/* Hero Section */}
       <section className="pt-32 pb-16 px-4 md:px-8 text-center">
         <p className="text-primary text-sm tracking-[0.2em] uppercase mb-4">
-          VISUAL STORIES OF DEVOTION
+          {t("galleryPage.badge")}
         </p>
         <h1 className="font-headline text-4xl md:text-5xl lg:text-6xl text-on-surface italic mb-6">
-          Gallery of Souls
+          {t("galleryPage.title")}
         </h1>
         <p className="text-on-surface-variant text-lg max-w-2xl mx-auto leading-relaxed">
-          Experience the serenity, love, and daily rhythms of our sanctuary through a
-          curated lens of compassion.
+          {t("galleryPage.subtitle")}
         </p>
       </section>
 
@@ -81,7 +82,7 @@ export default function GalleryPage() {
       <section className="px-4 md:px-8 lg:px-16 pb-16">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-headline text-2xl text-on-surface">Sacred Moments</h2>
+            <h2 className="font-headline text-2xl text-on-surface">{t("galleryPage.sacredMoments")}</h2>
             <button 
               className="w-10 h-10 rounded-full bg-on-surface text-surface flex items-center justify-center hover:bg-on-surface/80 transition-colors"
               onClick={() => setFilter(filter === "all" ? "featured" : "all")}
@@ -129,8 +130,8 @@ export default function GalleryPage() {
       {/* Life at the Gaushala - Video Section */}
       <section className="px-4 md:px-8 lg:px-16 pb-16">
         <div className="max-w-6xl mx-auto bg-surface-container-low rounded-3xl p-8 md:p-12">
-          <h2 className="font-headline text-2xl text-on-surface mb-2">Life at the Gaushala</h2>
-          <p className="text-on-surface-variant mb-8">Stories in motion from the heart of our sanctuary.</p>
+          <h2 className="font-headline text-2xl text-on-surface mb-2">{t("galleryPage.videoTitle")}</h2>
+          <p className="text-on-surface-variant mb-8">{t("galleryPage.videoSubtitle")}</p>
           
           <div className="grid md:grid-cols-3 gap-6">
             {videos.map((video, index) => (
@@ -173,24 +174,23 @@ export default function GalleryPage() {
             
             <div className="relative z-10">
               <h2 className="font-headline text-3xl md:text-4xl text-on-secondary font-bold mb-4">
-                Want to see more?
+                {t("galleryPage.wantMore")}
               </h2>
               <p className="text-on-secondary/80 max-w-md mx-auto mb-8">
-                Join us for a virtual tour or visit our sanctuary in person to
-                experience the peace firsthand.
+                {t("galleryPage.wantMoreDesc")}
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Link 
                   href="/contact"
                   className="px-8 py-3 bg-primary-fixed text-on-primary-fixed rounded-full font-medium hover:bg-primary-fixed/90 transition-colors"
                 >
-                  Book a Visit
+                  {t("galleryPage.bookVisit")}
                 </Link>
                 <Link 
                   href="/contact"
                   className="px-8 py-3 bg-on-secondary text-secondary rounded-full font-medium hover:bg-on-secondary/90 transition-colors"
                 >
-                  Join Our Newsletter
+                  {t("galleryPage.joinNewsletter")}
                 </Link>
               </div>
             </div>
@@ -198,7 +198,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <Footer variant="gallery" />
+      <Footer />
     </div>
   )
 }

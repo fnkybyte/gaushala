@@ -1,12 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { Share2, Camera, ExternalLink, ArrowRight } from "lucide-react"
+import { useLanguage } from "@/lib/language-context"
 
-interface FooterProps {
-  lang?: "en" | "hi"
-}
-
-export function Footer({ lang = "en" }: FooterProps) {
-  const isHindi = lang === "hi"
+export function Footer() {
+  const { language } = useLanguage()
+  const isHindi = language === "hi"
   
   const content = {
     en: {

@@ -2,51 +2,56 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
-import { Menu, X, Home, Heart, Image, Phone, Globe } from "lucide-react"
+import { useState, useRef, useEffect } from "react"
+import { Menu, X, Home, Heart, Image, Phone, ChevronDown } from "lucide-react"
+import { useLanguage } from "@/lib/language-context"
 
-interface NavbarProps {
-  lang?: "en" | "hi"
-}
-
-const navLinksEn = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/donate", label: "Donate" },
-  { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact" },
-]
-
-const navLinksHi = [
-  { href: "/hi", label: "मुख्य पृष्ठ" },
-  { href: "/about", label: "हमारे बारे में" },
-  { href: "/donate", label: "दान करें" },
-  { href: "/gallery", label: "गैलरी" },
-  { href: "/contact", label: "संपर्क" },
-]
-
-export function Navbar({ lang = "en" }: NavbarProps) {
+export function Navbar() {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  
-  const navLinks = lang === "hi" ? navLinksHi : navLinksEn
-  const logoText = lang === "hi" ? "धर्म सैंक्चुअरी" : "Dharma Sanctuary"
-  const donateText = lang === "hi" ? "अभी दान करें" : "Donate Now"
-  const langSwitchHref = lang === "hi" ? "/" : "/hi"
-  const langSwitchLabel = lang === "hi" ? "English" : "हिन्दी"
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const { language, setLanguage, t } = useLanguage()
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setLangDropdownOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  const navLinks = [
+    { href: "/", label: t("nav.home") },
+    { href: "/about", label: t("nav.about") },
+    { href: "/donate", label: t("nav.donate") },
+    { href: "/gallery", label: t("nav.gallery") },
+    { href: "/contact", label: t("nav.contact") },
+  ]
+
+  const logoText = language === "hi" ? "धर्म सैंक्चुअरी" : "Dharma Sanctuary"
+  const donateText = t("nav.donateNow")
 
   const isActive = (href: string) => {
-    if (href === "/" || href === "/hi") {
-      return pathname === href
+    if (href === "/") {
+      return pathname === "/"
     }
     return pathname.startsWith(href)
+  }
+
+  const handleLanguageChange = (lang: "en" | "hi") => {
+    setLanguage(lang)
+    setLangDropdownOpen(false)
   }
 
   return (
     <>
       <nav className="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-sm">
         <div className="flex justify-between items-center max-w-7xl mx-auto px-6 h-20">
-          <Link href={lang === "hi" ? "/hi" : "/"} className="text-2xl font-bold text-primary flex items-center gap-2 font-headline">
+          <Link href="/" className="text-2xl font-bold text-primary flex items-center gap-2 font-headline">
             <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 3L4 9v12h16V9l-8-6zm0 2.5L18 10v9H6v-9l6-4.5z"/>
               <circle cx="12" cy="14" r="2"/>
@@ -68,12 +73,41 @@ export function Navbar({ lang = "en" }: NavbarProps) {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href={langSwitchHref}
-              className="text-on-surface-variant hover:text-primary transition-colors font-headline text-sm font-semibold tracking-wide"
-            >
-              {langSwitchLabel}
-            </Link>
+            
+            {/* Language Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setLangDropdownOpen(!langDropdownOpen)}
+                className="flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-headline text-sm font-semibold tracking-wide"
+              >
+                <span className="text-lg">{language === "en" ? "🇺🇸" : "🇮🇳"}</span>
+                <span>{language === "en" ? "English" : "हिन्दी"}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${langDropdownOpen ? "rotate-180" : ""}`} />
+              </button>
+              
+              {langDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant/20 overflow-hidden min-w-[160px]">
+                  <button
+                    onClick={() => handleLanguageChange("en")}
+                    className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors ${
+                      language === "en" ? "bg-primary-fixed/20 text-primary" : "text-on-surface-variant"
+                    }`}
+                  >
+                    <span className="text-xl">🇺🇸</span>
+                    <span className="font-headline font-semibold">English</span>
+                  </button>
+                  <button
+                    onClick={() => handleLanguageChange("hi")}
+                    className={`w-full flex items-center gap-3 px-4 py-3 hover:bg-surface-container transition-colors ${
+                      language === "hi" ? "bg-primary-fixed/20 text-primary" : "text-on-surface-variant"
+                    }`}
+                  >
+                    <span className="text-xl">🇮🇳</span>
+                    <span className="font-headline font-semibold">हिन्दी</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
           
           <Link
@@ -108,13 +142,33 @@ export function Navbar({ lang = "en" }: NavbarProps) {
                   {link.label}
                 </Link>
               ))}
-              <Link
-                href={langSwitchHref}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-on-surface-variant font-headline text-base font-semibold py-2"
-              >
-                {langSwitchLabel}
-              </Link>
+              
+              {/* Mobile Language Selector */}
+              <div className="flex items-center gap-4 py-2">
+                <button
+                  onClick={() => handleLanguageChange("en")}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
+                    language === "en" 
+                      ? "bg-primary-fixed text-on-primary-fixed" 
+                      : "bg-surface-container text-on-surface-variant"
+                  }`}
+                >
+                  <span>🇺🇸</span>
+                  <span className="font-headline font-semibold text-sm">English</span>
+                </button>
+                <button
+                  onClick={() => handleLanguageChange("hi")}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
+                    language === "hi" 
+                      ? "bg-primary-fixed text-on-primary-fixed" 
+                      : "bg-surface-container text-on-surface-variant"
+                  }`}
+                >
+                  <span>🇮🇳</span>
+                  <span className="font-headline font-semibold text-sm">हिन्दी</span>
+                </button>
+              </div>
+              
               <Link
                 href="/donate"
                 onClick={() => setMobileMenuOpen(false)}
@@ -129,21 +183,21 @@ export function Navbar({ lang = "en" }: NavbarProps) {
       
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 w-full bg-surface flex justify-around items-center p-4 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
-        <Link href={lang === "hi" ? "/hi" : "/"} className={`flex flex-col items-center gap-1 ${isActive("/") || isActive("/hi") ? "text-primary-container" : "text-on-surface-variant"}`}>
+        <Link href="/" className={`flex flex-col items-center gap-1 ${isActive("/") ? "text-primary-container" : "text-on-surface-variant"}`}>
           <Home className="w-5 h-5" />
-          <span className="text-[10px] font-bold">{lang === "hi" ? "मुख्य" : "Home"}</span>
+          <span className="text-[10px] font-bold">{language === "hi" ? "मुख्य" : "Home"}</span>
         </Link>
         <Link href="/donate" className={`flex flex-col items-center gap-1 ${isActive("/donate") ? "text-primary-container" : "text-on-surface-variant"}`}>
           <Heart className="w-5 h-5" />
-          <span className="text-[10px] font-bold">{lang === "hi" ? "दान" : "Donate"}</span>
+          <span className="text-[10px] font-bold">{language === "hi" ? "दान" : "Donate"}</span>
         </Link>
         <Link href="/gallery" className={`flex flex-col items-center gap-1 ${isActive("/gallery") ? "text-primary-container" : "text-on-surface-variant"}`}>
           <Image className="w-5 h-5" />
-          <span className="text-[10px] font-bold">{lang === "hi" ? "गैलरी" : "Gallery"}</span>
+          <span className="text-[10px] font-bold">{language === "hi" ? "गैलरी" : "Gallery"}</span>
         </Link>
-        <Link href={langSwitchHref} className="flex flex-col items-center gap-1 text-on-surface-variant">
-          <Globe className="w-5 h-5" />
-          <span className="text-[10px] font-bold">{langSwitchLabel}</span>
+        <Link href="/contact" className={`flex flex-col items-center gap-1 ${isActive("/contact") ? "text-primary-container" : "text-on-surface-variant"}`}>
+          <Phone className="w-5 h-5" />
+          <span className="text-[10px] font-bold">{language === "hi" ? "संपर्क" : "Contact"}</span>
         </Link>
       </nav>
     </>
