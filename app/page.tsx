@@ -2,7 +2,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Heart, Utensils, Receipt, Users, Grass, Stethoscope, Home as HomeIcon } from "lucide-react"
+import { ArrowRight, Heart, Utensils, Receipt, Users, Wheat, Stethoscope, Home as HomeIcon } from "lucide-react"
 
 export default function HomePage() {
   return (
@@ -144,7 +144,7 @@ export default function HomePage() {
               {/* Feed a Cow */}
               <div className="bg-surface-container-low p-10 rounded-3xl flex flex-col items-center text-center group hover:bg-primary-fixed transition-colors duration-500">
                 <div className="w-20 h-20 bg-surface-container-lowest rounded-full flex items-center justify-center text-primary mb-8 shadow-sm">
-                  <Grass className="w-10 h-10" />
+                  <Wheat className="w-10 h-10" />
                 </div>
                 <h4 className="text-2xl font-headline font-bold mb-2">Feed a cow</h4>
                 <p className="text-on-surface-variant mb-6">Provide nutritious organic fodder for a single cow for one day.</p>
