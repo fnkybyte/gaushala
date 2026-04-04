@@ -60,23 +60,19 @@ export default function DonatePage() {
               {t("donatePage.scanSubtitle")}
             </p>
             
-            <div className="bg-white rounded-2xl p-8 flex flex-col items-center mb-6">
-              <div className="w-48 h-48 bg-surface-container rounded-xl flex items-center justify-center mb-4 relative overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <QrCode className="w-32 h-32 text-on-surface-variant/30" />
-                </div>
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 bg-primary-fixed px-3 py-1 rounded text-xs font-medium text-on-primary-fixed">
-                  UPI
-                </div>
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center">
-                  <p className="text-xs text-on-surface-variant/60">UPI Direct Donations</p>
-                  <p className="text-xs text-on-surface-variant/60">for Donations</p>
-                </div>
+            <div className="bg-white rounded-2xl p-4 flex flex-col items-center mb-6">
+              <div className="relative w-64 h-64 md:w-72 md:h-72">
+                <Image
+                  src="/images/upi-qr-code.jpeg"
+                  alt="UPI QR Code for donations"
+                  fill
+                  className="object-contain rounded-xl"
+                />
               </div>
-              <div className="bg-secondary/10 text-secondary px-4 py-2 rounded-lg text-sm font-medium">
-                SAFE & WORK
+              <div className="bg-secondary/10 text-secondary px-4 py-2 rounded-lg text-sm font-medium mt-4">
+                SCAN TO DONATE
               </div>
-              <p className="text-xs text-on-surface-variant/60 mt-2">Safe and Work</p>
+              <p className="text-xs text-on-surface-variant/60 mt-2">PhonePe / Google Pay / Paytm</p>
             </div>
             
             <div className="flex items-center justify-center gap-6 text-on-surface-variant/60">
